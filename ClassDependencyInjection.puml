@@ -1,0 +1,90 @@
+@startuml
+
+' DatabaseService and APIService:
+'       These represent external services that are injected into the SongContainer
+'       to interact with data sources or APIs, following the
+'       Dependency Injection principle.
+'
+'       The SongContainer class has a dependency on DatabaseService and APIService.
+'       These dependencies are injected rather than being hardcoded into the class,
+'       making the system more flexible and easier to test.
+'
+'  Decoupling: The SongContainer doesn’t have to know about the internal workings
+'               of DatabaseService or APIService. It just knows that it needs
+'               these services to operate.
+'
+'  Testability: You can now easily mock or swap these services during testing,
+'               making unit tests easier and more isolated.
+'
+'  Flexibility: The system can evolve or integrate with other services without
+'               major changes to the SongContainer class itself.
+'
+
+
+class Folder {
+    +name: String
+}
+
+class MediaItem {
+    +id: int
+    +title: String
+    +type: String
+}
+
+class Song {
+    +duration: int
+    +artist: String
+}
+
+class SongContainer {
+    +collection: List<Song>
+}
+
+class MusicRelease {
+    +releaseDate: Date
+}
+
+class Album {
+    ' Inherits releaseDate from MusicRelease
+}
+
+class EP {
+    ' Inherits releaseDate from MusicRelease
+}
+
+class Single {
+    ' Inherits releaseDate from MusicRelease
+}
+
+class Playlist {
+    +description: String
+}
+
+class DatabaseService {
+    +connect(): void
+    +save(media: MediaItem): void
+    +load(id: int): MediaItem
+}
+
+class APIService {
+    +fetchSongData(songId: int): Song
+}
+
+' Dependency Injection relationship
+SongContainer "1" o-- "1" DatabaseService : inject >
+SongContainer "1" o-- "1" APIService : inject >
+
+' Relationships between existing classes
+MediaItem <|-- Song
+MediaItem <|-- Folder
+MediaItem <|-- SongContainer
+SongContainer <|-- MusicRelease
+SongContainer <|-- Playlist
+MusicRelease <|-- Album
+MusicRelease <|-- EP
+MusicRelease <|-- Single
+
+' Adjust the relationship lines for clarity
+Folder "1" -- "0..*" MediaItem : contains >
+SongContainer "1" -- "1..*" Song : has >
+@enduml

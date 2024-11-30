@@ -1,0 +1,50 @@
+
+############################################
+
+# Add here custom folders for git to ignore
+
+
+
+############################################
+
+# CMake build directories
+cmake-build-debug/
+cmake-build-release/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Compiled object files and binaries
+*.o
+*.so
+*.exe
+*.out
+*.a
+*.lib
+*.dll
+*.dsYM/
+*.pdb
+
+# IDE-specific files
+.idea/
+*.iml
+
+# CLion specific files
+*.user
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Backup files
+*~
+*.bak
+
+#Other
+*.swp
+*.orig
+
+############################################

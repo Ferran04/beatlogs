@@ -1,0 +1,85 @@
+@startuml
+
+' If you envision playlists having different playback behaviors
+' (e.g., shuffle, repeat, sequential play), consider using this Strategy pattern.
+' This makes it easy to add or change playback behavior
+' without modifying the core Playlist class.
+' The behavior becomes more dynamic, as you can switch strategies at runtime.
+
+class Folder {
+    +name: String
+}
+
+class MediaItem {
+    +id: int
+    +title: String
+    +type: String
+}
+
+class Song {
+    +duration: int
+    +artist: String
+}
+
+class SongContainer {
+    +collection: List<Song>
+}
+
+class MusicRelease {
+    +releaseDate: Date
+}
+
+class Album {
+    ' Inherits releaseDate from MusicRelease
+}
+
+class EP {
+    ' Inherits releaseDate from MusicRelease
+}
+
+class Single {
+    ' Inherits releaseDate from MusicRelease
+}
+
+class Playlist {
+    +description: String
+    -playbackStrategy: PlaybackStrategy
+    +setPlaybackStrategy(strategy: PlaybackStrategy): void
+    +nextSong(): Song
+}
+
+interface PlaybackStrategy {
+    +nextSong(playlist: Playlist): Song
+}
+
+class ShuffleStrategy {
+    +nextSong(playlist: Playlist): Song
+}
+
+class SequentialStrategy {
+    +nextSong(playlist: Playlist): Song
+}
+
+class RepeatStrategy {
+    +nextSong(playlist: Playlist): Song
+}
+
+' Relationships
+MediaItem <|-- Song
+MediaItem <|-- Folder
+MediaItem <|-- SongContainer
+SongContainer <|-- MusicRelease
+SongContainer <|-- Playlist
+MusicRelease <|-- Album
+MusicRelease <|-- EP
+MusicRelease <|-- Single
+
+PlaybackStrategy <|.. ShuffleStrategy
+PlaybackStrategy <|.. SequentialStrategy
+PlaybackStrategy <|.. RepeatStrategy
+Playlist "1" --> "1" PlaybackStrategy : uses >
+
+' Adjust the relationship lines for clarity
+Folder "1" -- "0..*" MediaItem : contains >
+SongContainer "1" -- "1..*" Song : has >
+@enduml

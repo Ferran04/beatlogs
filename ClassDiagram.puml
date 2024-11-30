@@ -1,0 +1,70 @@
+@startuml
+package "Library Module" {
+
+    class LibraryTree {
+        +root: Folder
+        +listAllItems(): List<MediaItem>
+    }
+
+    class Folder {
+        +name: String
+    }
+
+   class TreeBuilder {
+        +scanDirectory(path: String): LibraryTree
+    }
+
+    class MediaItem {
+        +id: int
+        +title: String
+        +type: String
+    }
+
+    class Song {
+        +duration: int
+        +artist: String
+    }
+
+    class SongContainer {
+        +collection: List<Song>
+    }
+
+    class MusicRelease {
+        +releaseDate: Date
+    }
+
+    class Album {
+        ' Inherits releaseDate from MusicRelease
+    }
+
+    class EP {
+        ' Inherits releaseDate from MusicRelease
+    }
+
+    class Single {
+        ' Inherits releaseDate from MusicRelease
+    }
+
+    class Playlist {
+        +description: String
+    }
+
+    ' Relationships
+    TreeBuilder --> LibraryTree : "builds"
+    MediaItem <|-- Song
+    MediaItem <|-- Folder
+    MediaItem <|-- SongContainer
+    SongContainer <|-- MusicRelease
+    SongContainer <|-- Playlist
+    MusicRelease <|-- Album
+    MusicRelease <|-- EP
+    MusicRelease <|-- Single
+
+
+    ' Adjust the relationship lines for clarity
+    Folder "1" -- "0..*" MediaItem : contains >
+    SongContainer "1" -- "1..*" Song : has >
+    LibraryTree "1" -- "0..*" MediaItem
+
+}
+@enduml

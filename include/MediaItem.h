@@ -8,11 +8,9 @@
 class MediaItem {
 protected:
 public:
+    virtual ~MediaItem() = default;
+    virtual void print() const { /* print a media item */};
 private:
 };
 
 #endif //MEDIAITEM_H
-
-
-
-

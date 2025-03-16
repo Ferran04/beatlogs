@@ -25,6 +25,8 @@ add_executable(beatlogs
         include/MediaItem.h
         src/MusicRelease.cpp
         include/MusicRelease.h
+        src/LibraryTree.cpp
+        include/LibraryTree.h
 )
 
 # Optional: Specify include directories for the target

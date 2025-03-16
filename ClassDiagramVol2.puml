@@ -1,0 +1,86 @@
+@startuml
+package "Library Module" {
+
+    class LibraryTree {
+        +root: Folder
+        +listAllItems(): List<MediaItem>
+    }
+
+    class Folder {
+    }
+
+    class File {
+
+    }
+
+   class TreeBuilder {
+        +scanDirectory(path: String): LibraryTree
+    }
+
+    class MediaItem {
+        +id: int
+        +type: String
+        +name: String
+    }
+
+    class AudioTrack {
+        +duration: int
+        +artist: String
+        +cover: Image [0..1] //Optional for track
+    }
+
+    class SongContainer {
+        +collection: List<AudioTrack>
+        +cover: Image [0..1] //Default for container
+
+    }
+
+    class MusicRelease {
+        +releaseDate: Date
+    }
+
+    class Album {
+        ' Inherits releaseDate from MusicRelease
+    }
+
+    class EP {
+        ' Inherits releaseDate from MusicRelease
+    }
+
+    class Single {
+        ' Inherits releaseDate from MusicRelease
+    }
+
+    class Image {
+
+    }
+
+    class Playlist {
+        +description: String
+    }
+
+    ' Relationships
+    TreeBuilder --> LibraryTree : "builds"
+    MediaItem <|-- File
+    File <|-- AudioTrack
+    File <|-- Image
+    MediaItem <|-- Folder
+    SongContainer <|-- MusicRelease
+    SongContainer <|-- Playlist
+    MusicRelease <|-- Album
+    MusicRelease <|-- EP
+    MusicRelease <|-- Single
+
+
+    ' Adjust the relationship lines for clarity
+    Folder "1" -- "0..*" MediaItem : contains >
+    SongContainer "1" -- "1..*" AudioTrack : has >
+    SongContainer "1" -- "1" Image : has cover >
+    AudioTrack "1" -- "1" Image : has cover [optional] >
+
+    LibraryTree "1" -- "0..*" MediaItem
+    LibraryTree "1" -- "0..*" SongContainer
+
+
+}
+@enduml

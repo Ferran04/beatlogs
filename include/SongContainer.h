@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-class SongContainer {
+class SongContainer : public MediaItem {
 protected:
     /*A SongContainer is, by definition a container with a bunch of songs
      * may it be a:
@@ -18,6 +18,7 @@ protected:
     std::vector<Song*> pSongs;
 public:
 private:
+    std::string containerName;
 };
 
 #endif //SONGCONTAINER_H

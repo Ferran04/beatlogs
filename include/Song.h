@@ -15,8 +15,8 @@ public:
     // constructors and destructors ---------------------------------------
     Song(std::string title, std::string artist, std::string containerName,
         std::string genre = "", std::string composer = "", std::string format = "",
-        std::string lyrics, const int durationInSeconds, const int trackNumber,
-        const int discNumber)
+        std::string lyrics = "", const int durationInSeconds = 0, const int trackNumber = 0,
+        const int discNumber = 0)
         : mTitle(std::move(title)), mArtist(std::move(artist)), mContainerName(std::move(containerName)),
           mGenre(std::move(genre)), mComposer(std::move(composer)), mFormat(std::move(format)),
           mLyrics(std::move(lyrics)), mDurationInSeconds(durationInSeconds), mTrackNumber(trackNumber),
